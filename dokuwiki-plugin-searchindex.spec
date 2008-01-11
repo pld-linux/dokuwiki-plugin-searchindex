@@ -1,5 +1,6 @@
 %define		_plugin		searchindex
-Summary:	Dokuwiki Searchindex Manager
+Summary:	DokuWiki Searchindex Manager
+Summary(pl.UTF-8):	Zarządca indeksu wyszukiwania dla DokuWiki
 Name:		dokuwiki-plugin-%{_plugin}
 Version:	20050904
 Release:	0.1
@@ -24,6 +25,17 @@ index.
 
 This Plugin needs a recent Browser as it makes use of modern
 JavaScript to carry out multiple tasks in the background (using AJAX).
+
+%description -l pl.UTF-8
+Wtyczka administratora pozwalająca przebudować indeks używany przez
+wyszukiwanie pełnotekstowe. Nie jest niezbędna w ogólnym przypadku,
+jako że indeks buduje się i uaktualnia sam w czasie przeglądania wiki.
+Jednakże po uaktualnieniu, dodaniu lub usunięciu wielu plików
+wyczyszczenie indeksu może być dobrym pomysłem.
+
+Wtyczka ta wymaga aktualnej przeglądarki, jako że wykorzystuje nową
+wersję JavaScriptu do wykonywania wielu zadań w tle (z użyciem
+AJAX-a).
 
 %prep
 %setup -q -n %{_plugin}
