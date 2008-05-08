@@ -1,9 +1,9 @@
-%define		_plugin		searchindex
+%define		plugin		searchindex
 Summary:	DokuWiki Searchindex Manager
 Summary(pl.UTF-8):	Zarządca indeksu wyszukiwania dla DokuWiki
-Name:		dokuwiki-plugin-%{_plugin}
+Name:		dokuwiki-plugin-%{plugin}
 Version:	20050904
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	http://wiki.splitbrain.org/_media/plugin:searchindex-plugin-2005-09-04.tgz
@@ -13,8 +13,8 @@ Requires:	dokuwiki >= 20061106
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_dokudir	/usr/share/dokuwiki
-%define		_plugindir	%{_dokudir}/lib/plugins/%{_plugin}
+%define		dokudir		/usr/share/dokuwiki
+%define		plugindir	%{dokudir}/lib/plugins/%{plugin}
 
 %description
 This admin plugin allows you to rebuild the index used by the fulltext
@@ -38,16 +38,16 @@ wersję JavaScriptu do wykonywania wielu zadań w tle (z użyciem
 AJAX-a).
 
 %prep
-%setup -q -n %{_plugin}
+%setup -q -n %{plugin}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_plugindir}
-cp -a . $RPM_BUILD_ROOT%{_plugindir}
+install -d $RPM_BUILD_ROOT%{plugindir}
+cp -a . $RPM_BUILD_ROOT%{plugindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{_plugindir}
+%{plugindir}
