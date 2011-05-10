@@ -1,21 +1,29 @@
 %define		plugin		searchindex
+%define		php_min_version 5.0.0
+%include	/usr/lib/rpm/macros.php
 Summary:	DokuWiki Searchindex Manager
 Summary(pl.UTF-8):	Zarządca indeksu wyszukiwania dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
-Version:	20050904
+Version:	20110502
 Release:	1
 License:	GPL v2
 Group:		Applications/WWW
-Source0:	http://wiki.splitbrain.org/_media/plugin:searchindex-plugin-2005-09-04.tgz
-# Source0-md5:	e572e94f5842a23f7514ebb8cda1514b
-URL:		http://wiki.splitbrain.org/plugin:searchindex
-Requires:	dokuwiki >= 20061106
+Source0:	http://github.com/splitbrain/dokuwiki-plugin-%{plugin}/zipball/master#/%{plugin}.zip
+# Source0-md5:	ecf9e27851b6ef33df6e75ce144076a5
+URL:		http://www.dokuwiki.org/plugin:searchindex
+BuildRequires:	rpm-php-pearprov >= 4.4.2-11
+BuildRequires:	rpmbuild(macros) >= 1.520
+Requires:	dokuwiki >= 20090214
+Requires:	php-common >= 4:%{php_min_version}
+Requires:	php-date
+Requires:	php-session
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		dokuconf	/etc/webapps/dokuwiki
 %define		dokudir		/usr/share/dokuwiki
 %define		plugindir	%{dokudir}/lib/plugins/%{plugin}
+%define		find_lang 	%{_usrlibrpm}/dokuwiki-find-lang.sh %{buildroot}
 
 %description
 This admin plugin allows you to rebuild the index used by the fulltext
@@ -39,22 +47,38 @@ wersję JavaScriptu do wykonywania wielu zadań w tle (z użyciem
 AJAX-a).
 
 %prep
-%setup -q -n %{plugin}
+%setup -qc
+# for githug urls:
+mv *-%{plugin}-*/* .
+
+version=$(awk '/^date/{print $2}' plugin.info.txt)
+if [ "$(echo "$version" | tr -d -)" != %{version} ]; then
+	: %%{version} mismatch
+	exit 1
+fi
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{plugindir}
 cp -a . $RPM_BUILD_ROOT%{plugindir}
+%{__rm} $RPM_BUILD_ROOT%{plugindir}/README
+
+%find_lang %{name}.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-# force css cache refresh
+# force js/css cache refresh
 if [ -f %{dokuconf}/local.php ]; then
 	touch %{dokuconf}/local.php
 fi
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
-%{plugindir}
+%doc README
+%dir %{plugindir}
+%{plugindir}/*.css
+%{plugindir}/*.js
+%{plugindir}/*.php
+%{plugindir}/*.txt
