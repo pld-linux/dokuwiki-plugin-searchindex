@@ -5,7 +5,7 @@ Summary:	DokuWiki Searchindex Manager
 Summary(pl.UTF-8):	Zarządca indeksu wyszukiwania dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
 Version:	20110502
-Release:	1
+Release:	5
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	http://github.com/splitbrain/dokuwiki-plugin-%{plugin}/zipball/master#/%{plugin}.zip
@@ -14,9 +14,9 @@ URL:		http://www.dokuwiki.org/plugin:searchindex
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 BuildRequires:	rpmbuild(macros) >= 1.520
 Requires:	dokuwiki >= 20090214
+Requires:	php(session)
 Requires:	php-common >= 4:%{php_min_version}
 Requires:	php-date
-Requires:	php-session
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
