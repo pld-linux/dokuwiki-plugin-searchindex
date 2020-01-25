@@ -1,6 +1,5 @@
 %define		plugin		searchindex
 %define		php_min_version 5.0.0
-%include	/usr/lib/rpm/macros.php
 Summary:	DokuWiki Searchindex Manager
 Summary(pl.UTF-8):	Zarządca indeksu wyszukiwania dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
